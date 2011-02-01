@@ -7,6 +7,9 @@ gem 'rails', '3.0.3'
 
 gem 'sqlite3-ruby', :require => 'sqlite3'
 
+# Use HAML for teplates to make them much nicer
+gem "haml-rails"
+
 # Use unicorn as the web server
 # gem 'unicorn'
 
