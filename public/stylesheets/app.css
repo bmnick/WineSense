@@ -28,6 +28,7 @@ body {
 	font-family: cambria;
 	font-size: 1.1em;
 	letter-spacing: 0.2em;
+	border-bottom: 5px solid #734A12;
 }
 
 #header a {
@@ -50,6 +51,6 @@ body {
 #graph {
 	float: right;
 	background-color: white;
-	height: 600px;
-	width: 600px;
+	height: 800px;
+	width: 800px;
 }

@@ -1,10 +1,11 @@
-var canvasWidth = 600;
-var canvasHeight = 600;
+var canvasWidth = 800;
+var canvasHeight = 800;
 var orginX = canvasWidth/2;
 var orginY = canvasHeight/2;
-var L1Radius = canvasWidth/6;
-var L2Radius = L1Radius * 2;
-var L3Radius = L1Radius * 3;
+var radStep = canvasWidth/24;
+var L1Radius = 5 * radStep;
+var L2Radius = 8 * radStep;
+var L3Radius = 12 * radStep;
 
 var radPerSmell = 0;
 var paper;
