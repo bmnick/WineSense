@@ -1,4 +1,4 @@
-[
+var aromaViewData = [
 	{
 		"L1Name" : "Vegetative",
 		"L2" : [
@@ -44,5 +44,21 @@
 				]
 			}
 		]
+	},
+	{
+		"L1Name" : "Caramelized",
+		"L2" : [
+			{
+				"L2Name" : "Caramelized",
+				"L3" : [
+					{ "L3Name" : "Honey" },
+					{ "L3Name" : "Butterscotch" },
+					{ "L3Name" : "Diacetyl (Butter)" },
+					{ "L3Name" : "Soy Sauce" },
+					{ "L3Name" : "Chocolate" },
+					{ "L3Name" : "Molasses" },
+				]
+			}
+		]
 	}
-]
+];
