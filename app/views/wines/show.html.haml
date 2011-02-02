@@ -3,7 +3,8 @@
     -if @wine.description
         %p#description= @wine.description
     -else
-        %p#description= 'Apparently someone was more interested in tasting this than describing it!'
+        %p#description 
+            Apparently someone was more interested in tasting this than describing it!
     #ratings
         -if @wine.tastings.size > 0
             %ul
