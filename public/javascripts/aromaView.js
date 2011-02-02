@@ -12,6 +12,54 @@ var radPerSmell = 0;
 var paper;
 var maxRating = 0;
 
+
+var ratingData = {
+	"_comment" : "Vegetative",
+		"_comment" : "Fresh",
+	"Stemmy" : 1,
+	"Grass, Cut Green" : 1,
+	"Bell Pepper" : 1,
+	"Eucalyptus" : 1,
+	"Mint" : 2,
+		"_comment" : "Canned / Cooked",
+	"Green Beans" : 0,
+	"Asparagus" : 0,
+	"Green Olive" : 0,
+	"Black Olive" : 0,
+	"Artichoke" : 0,
+		"_comment" : "Dried",
+	"Hay / Straw" : 0,
+	"Tea" : 0,
+	"Tobacco" : 0,
+	
+	"_comment" : "Nutty",
+		"_comment" : "Nutty",
+	"Walnut" : 1,
+	"Hazelnut" : 3,
+	"Almond" : 1,
+	
+	"_comment" : "Caramelized",
+		"_comment" : "Caramelized",
+	"Honey" : 0,
+	"Butterscotch" : 0,
+	"Diacetyl (Butter)" : 0,
+	"Soy Sauce" : 0,
+	"Chocolate" : 0,
+	"Molasses" : 0,
+	
+	"_comment" : "Woody",
+		"_comment" : "Phenolic",
+	"Phenolic" : 0,
+	"Vanilla" : 0,
+		"_comment" : "Resinous",
+	"Cedar" : 0,
+	"Oak" : 0,
+		"_comment" : "Burned",
+	"Smoky" : 0,
+	"Burnt Toast/Charred" : 0,
+	"Coffee" : 0
+};
+
 function prepareForDrawing() {
 	//Count how many Level 3s there are
 	var l3Count = 0;
@@ -69,7 +117,7 @@ function drawLevel1() {
 	} 
 }
 
-function drawLevel2() {
+function drawLevel2(selectMode) {
 	var radFromOrgin = 0;
 	for(l1key in aromaViewData) {
 		for(l2key in aromaViewData[l1key].L2) {
@@ -93,18 +141,31 @@ function drawLevel2() {
 			
 			
 			//WORRRRDSSSS
-			var wordsx = orginX + ((L1Radius +(L2Radius-L1Radius)/2) * Math.cos(rads/2 + radFromOrgin));
-			var wordsy = orginY + ((L1Radius +(L2Radius-L1Radius)/2) * Math.sin(rads/2 + radFromOrgin));
+			var wordsx = orginX + ((L1Radius +(L2Radius - L1Radius) /2) * Math.cos(rads/2 + radFromOrgin));
+			var wordsy = orginY + ((L1Radius +(L2Radius - L1Radius) /2) * Math.sin(rads/2 + radFromOrgin));
 			var textRot = rads/2 + radFromOrgin;
 			textRot = (textRot > (Math.PI / 2) && textRot < (3 * Math.PI /2)) ? (textRot + Math.PI) : textRot;
-			paper.text(wordsx,wordsy,aromaViewData[l1key].L2[l2key].L2Name).rotate(Raphael.deg(textRot));
+			var smellText = paper.text(wordsx,wordsy,aromaViewData[l1key].L2[l2key].L2Name)
+				.rotate(Raphael.deg(textRot));
+				
+			
+			if(selectMode) {
+				smellText.attr({ "cursor" : "pointer" });
+				
+				//lol screw rafael's events
+				$(smellText.node).click([l1key, l2key, smellText], function (event) {
+					aromaViewData[event.data[0]].L2[event.data[1]].selected = !aromaViewData[event.data[0]].L2[event.data[1]].selected
+					event.data[2].attr({ "stroke" : (aromaViewData[event.data[0]].L2[event.data[1]].selected) ? "#0cf" : "" });
+				});
+			}
+			
 			radFromOrgin += rads;
 		}
 	}
 }
 
 
-function drawLevel3() {
+function drawLevel3(selectMode) {
 	var radFromOrgin = 0;
 	for(l1key in aromaViewData) {
 		for(l2key in aromaViewData[l1key].L2) {
@@ -112,13 +173,25 @@ function drawLevel3() {
 				var rads = radPerSmell;
 
 
-
+				aromaViewData[l1key].L2[l2key].L3[l3key].selected = false;
 				//WORRRRDSSSS
 				var wordsx = orginX + ((L2Radius +(L3Radius-L2Radius)/2) * Math.cos(rads/2 + radFromOrgin));
 				var wordsy = orginY + ((L2Radius +(L3Radius-L2Radius)/2) * Math.sin(rads/2 + radFromOrgin));
 				var textRot = rads/2 + radFromOrgin;
 				textRot = (textRot > (Math.PI / 2) && textRot < (3 * Math.PI /2)) ? (textRot + Math.PI) : textRot;
-				paper.text(wordsx,wordsy,aromaViewData[l1key].L2[l2key].L3[l3key].L3Name).rotate(Raphael.deg(textRot));
+				var smellText = paper.text(wordsx,wordsy,aromaViewData[l1key].L2[l2key].L3[l3key].L3Name)
+					.rotate(Raphael.deg(textRot));
+						
+				if(selectMode) {
+					smellText.attr({ "cursor":"pointer" });
+					
+					//lol screw rafael's events
+					$(smellText.node).click([l1key, l2key, l3key, smellText], function (event) {
+						aromaViewData[event.data[0]].L2[event.data[1]].L3[event.data[2]].selected = !aromaViewData[event.data[0]].L2[event.data[1]].L3[event.data[2]].selected
+						event.data[3].attr({ "stroke" : (aromaViewData[event.data[0]].L2[event.data[1]].L3[event.data[2]].selected) ? "#0cf" : "" });
+					});
+				}
+				
 				radFromOrgin += rads;
 			}
 		}
@@ -185,8 +258,8 @@ $(document).ready(function ready() {
 	
 	prepareForDrawing();
 	drawLevel1();
-	drawLevel2();
-	drawLevel3();
+	drawLevel2(true);
+	drawLevel3(true);
 	
 	//prepareResultLine();
 	//drawResultLine();
