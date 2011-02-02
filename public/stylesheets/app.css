@@ -10,7 +10,7 @@ body {
 	overflow-x: hidden;
 }
 
-.header {
+#header {
 	padding: 20px 20px 0;
 	height: 80px;
 	width: 100%;
@@ -18,14 +18,14 @@ body {
 	background-color: #600;
 }
 
-.header a {
+#header a {
 	color: #EC8;
 }
 
-.body {
+#body {
 	padding: 20px;
 }
 
-.body h2 {
+#body h2 {
 	color: #600;
 }
