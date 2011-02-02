@@ -1,12 +1,21 @@
-%h2= "#{@wine}"
-#ratings
-    -if @wine.tastings.size > 0
-        %ol
-            -@wine.tastings.each do |t|
-                %li= t.id
+#text
+    %h2= "#{@wine}"
+    -if @wine.description
+        %p#description= @wine.description
     -else
-        %p 
-            No tastings yet, 
-            = link_to 'uncork a bottle!', new_wine_tasting_path(@wine)
+        %p#description= 'Apparently someone was more interested in tasting this than describing it!'
+    #ratings
+        -if @wine.tastings.size > 0
+            %ul
+                -@wine.tastings.each do |t|
+                    %li= t.id
+            %p= link_to 'uncork a bottle!', new_wine_tasting_path(@wine)
+        -else
+            %p 
+                No tastings yet, 
+                = link_to 'uncork a bottle!', new_wine_tasting_path(@wine)
 #graph
+
+- content_for :js_includes do 
+    = javascript_include_tag "aromaView.js"
     

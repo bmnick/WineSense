@@ -3,11 +3,18 @@ html,body {
 
 }
 body {
-	background-color: #EC8;
+	background-color: #F0F9D2;
+	background-image: url('/images/Untitled.png');
+	background-repeat: repeat;
 	color: black;
 	margin: 0;
 	padding: 0;
 	overflow-x: hidden;
+	font-family: "helvetica neue", helvetica;
+	font-weight: 200;
+	font-size:1.1em;
+	-webkit-font-smoothing: antialiased;
+	
 }
 
 #header {
@@ -15,11 +22,17 @@ body {
 	height: 80px;
 	width: 100%;
 	margin: 0;
-	background-color: #600;
+	background-color: #100a0a;
+	background-image: url('/images/scap.png');
+	background-repeat: repeat-x;
+	font-family: cambria;
+	font-size: 1.1em;
+	letter-spacing: 0.2em;
 }
 
 #header a {
 	color: #EC8;
+	text-decoration: none;
 }
 
 #body {
@@ -28,4 +41,15 @@ body {
 
 #body h2 {
 	color: #600;
+}
+
+#text {
+	float: left;
+}
+
+#graph {
+	float: right;
+	background-color: #ccc;
+	height: 600px;
+	width: 600px;
 }

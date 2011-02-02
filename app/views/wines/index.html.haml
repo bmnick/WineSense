@@ -1,6 +1,7 @@
-%h2 Available Wines
+%h2 Current Wines
 #wines
-    - @wines.each do |wine|
-        .wine
-            = link_to wine.to_s, wine
+    %ul
+        - @wines.each do |wine|
+            .wine
+                %li= link_to wine.to_s, wine
     = link_to 'new wine', new_wine_path

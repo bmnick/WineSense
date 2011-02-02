@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110202032938) do
+ActiveRecord::Schema.define(:version => 20110202053243) do
 
   create_table "tastings", :force => true do |t|
     t.string   "json_string"
@@ -25,6 +25,7 @@ ActiveRecord::Schema.define(:version => 20110202032938) do
     t.string   "wine"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "description"
   end
 
 end
