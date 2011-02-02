@@ -60,5 +60,33 @@ var aromaViewData = [
 				]
 			}
 		]
+	},
+	{
+		"L1Name" : "Woody",
+		"L2" : [
+			{
+				"L2Name" : "Phenolic",
+				"L3" : [
+					{ "L3Name" : "Phenolic" },
+					{ "L3Name" : "Vanilla" },
+				]
+			},
+			{
+				"L2Name" : "Resinous",
+				"L3" : [
+					{ "L3Name" : "Cedar" },
+					{ "L3Name" : "Oak" }
+				]
+			},
+			{
+				"L2Name" : "Burned",
+				"L3" : [
+					{ "L3Name" : "Smoky" },
+					{ "L3Name" : "Burnt Toast/Charred" },
+					{ "L3Name" : "Coffee" }
+				]
+			}
+		]
 	}
+				
 ];

@@ -42,6 +42,7 @@
 		"_comment" : "Burned",
 	"Smoky" : 0,
 	"Burnt Toast/Charred" : 0,
+	"Coffee" : 0,
 	
 	"_comment" : "Earthy",
 		"_comment" : "Earthy",
