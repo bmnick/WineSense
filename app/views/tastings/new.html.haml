@@ -1,0 +1,8 @@
+%h2= "New Tasting for #{@wine}"
+= form_for [@wine, @tasting] do |f|
+    %p
+        = f.label :json_string
+        = f.text_field :json_string
+    
+    %p
+        = f.submit

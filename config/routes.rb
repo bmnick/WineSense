@@ -1,7 +1,13 @@
 WineSense::Application.routes.draw do
+  get "tastings/show"
+
+  get "tastings/new"
+
   root :to => 'wines#index'
   
-  resources :wines
+  resources :wines do
+    resources :tastings
+  end
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

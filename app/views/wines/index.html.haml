@@ -2,5 +2,5 @@
 #wines
     - @wines.each do |wine|
         .wine
-            = link_to "#{wine.year} #{wine.winery} #{wine.wine}", wine
+            = link_to wine.to_s, wine
     = link_to 'new wine', new_wine_path
