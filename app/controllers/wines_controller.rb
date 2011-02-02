@@ -1,6 +1,6 @@
 class WinesController < ApplicationController  
   before_filter :load_wines, :only => :index
-  before_filter :load_wine, :except => :index
+  before_filter :load_wine, :except => [:index, :new, :create]
   
   def index
   end
@@ -9,6 +9,16 @@ class WinesController < ApplicationController
   end
 
   def new
+    @wine = Wine.new
+  end
+  
+  def create
+    @wine = Wine.new(params[:wine])
+    
+    if @wine.save
+      flash[:notice] = 'Wine Created'
+      redirect_to :action => "index", 
+    end
   end
 
   def edit

@@ -1,2 +1,16 @@
-%h1 WinesController#new
-%p Find me in app/views/wines_controller/new.html.haml
+%h1 New Wine
+= form_for @wine do |f|
+    %p
+        = f.label :year
+        = f.text_field :year
+    
+    %p
+        = f.label :winery
+        = f.text_field :winery
+    
+    %p
+        = f.label :wine
+        = f.text_field :wine
+    
+    %p
+        = f.submit

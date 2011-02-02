@@ -1,2 +1,6 @@
 %h1 Available Wines
-%p Find me in app/views/wines_controller/index.html.haml
+.wines
+    - @wines.each do |wine|
+        .wine
+            = link_to "#{wine.year} #{wine.winery} #{wine.wine}", wine
+    = link_to 'new wine', new_wine_path
