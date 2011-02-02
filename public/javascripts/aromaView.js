@@ -1,9 +1,10 @@
-var canvasWidth = 600;
-var canvasHeight = 600;
-var orginX = 300;
-var orginY = 300;
-var L1Radius = 100;
-var L2Radius = 200;
+var canvasWidth = 800;
+var canvasHeight = 800;
+var orginX = canvasWidth/2;
+var orginY = canvasHeight/2;
+var L1Radius = canvasWidth/6;
+var L2Radius = L1Radius * 2;
+var L3Radius = L1Radius * 3;
 
 var radPerSmell = 0;
 var paper;
@@ -40,7 +41,6 @@ function prepareForDrawing() {
 
 
 function drawLevel1() {
-	aromaViewData.length;
 	var radFromOrgin = 0;
 	for(l1key in aromaViewData) {
 		var rads = aromaViewData[l1key].rads;
@@ -51,6 +51,7 @@ function drawLevel1() {
 		paper.path("M" + orginX + "," + orginY + 
 			"L" + startx + "," + starty + 
 			"A" + L1Radius + ", " + L1Radius + " 0 " + ((rads < Math.PI) ? 1 : 0) + ",0 " + endx + "," + endy);
+		
 		
 		//WORRRRDSSSS
 		var wordsx = orginX + (L1Radius/2 * Math.cos(rads/2 + radFromOrgin));
@@ -66,7 +67,6 @@ function drawLevel1() {
 }
 
 function drawLevel2() {
-	aromaViewData.length;
 	var radFromOrgin = 0;
 	for(l1key in aromaViewData) {
 		for(l2key in aromaViewData[l1key].L2) {
@@ -78,12 +78,15 @@ function drawLevel2() {
 			
 			var innerStartx = orginX + (L1Radius * Math.cos(radFromOrgin));
 			var innerStarty = orginY + (L1Radius * Math.sin(radFromOrgin));
-			var innerEndx = orginX + (L1Radius * Math.cos(rads + radFromOrgin));
-			var innerEndy = orginY + (L1Radius * Math.sin(rads + radFromOrgin));
+			
+			var outerEndx = orginX + (L3Radius * Math.cos(radFromOrgin));
+			var outerEndy = orginY + (L3Radius * Math.sin(radFromOrgin));
 			paper.path("M" + innerStartx + "," + innerStarty + 
 				"L" + startx + "," + starty + 
 				"A" + L2Radius + ", " + L2Radius + " 0 " + ((rads < Math.PI) ? 1 : 0) + ",0 " + endx + "," + endy);
 			
+			paper.path("M" + startx + "," + starty + 
+				"L" + outerEndx + "," + outerEndy);
 			
 			
 			//WORRRRDSSSS
@@ -98,6 +101,29 @@ function drawLevel2() {
 }
 
 
+function drawLevel3() {
+	aromaViewData.length;
+	var radFromOrgin = 0;
+	for(l1key in aromaViewData) {
+		for(l2key in aromaViewData[l1key].L2) {
+			for(l3key in aromaViewData[l1key].L2[l2key].L3) {
+				var rads = radPerSmell;
+
+
+
+				//WORRRRDSSSS
+				var wordsx = orginX + ((L2Radius +(L3Radius-L2Radius)/2) * Math.cos(rads/2 + radFromOrgin));
+				var wordsy = orginY + ((L2Radius +(L3Radius-L2Radius)/2) * Math.sin(rads/2 + radFromOrgin));
+				var textRot = rads/2 + radFromOrgin;
+				textRot = (textRot > (Math.PI / 2) && textRot < (3 * Math.PI /2)) ? (textRot + Math.PI) : textRot;
+				paper.text(wordsx,wordsy,aromaViewData[l1key].L2[l2key].L3[l3key].L3Name).rotate(Raphael.deg(textRot));
+				radFromOrgin += rads;
+			}
+		}
+	}
+}
+
+
 
 $(document).ready(function ready() {
 	paper = Raphael("graph", canvasWidth, canvasHeight);
@@ -106,6 +132,5 @@ $(document).ready(function ready() {
 	prepareForDrawing();
 	drawLevel1();
 	drawLevel2();
-
-	var lolRect = paper.rect(10, 10, 50 ,50);
+	drawLevel3();
 });
