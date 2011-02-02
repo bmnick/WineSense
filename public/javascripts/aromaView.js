@@ -2,13 +2,15 @@ var canvasWidth = 800;
 var canvasHeight = 800;
 var orginX = canvasWidth/2;
 var orginY = canvasHeight/2;
-var radStep = canvasWidth/24;
-var L1Radius = 5 * radStep;
-var L2Radius = 8 * radStep;
-var L3Radius = 12 * radStep;
+var L1Radius = canvasWidth/6;
+var L2Radius = L1Radius * 2;
+var L3Radius = L1Radius * 3;
+var ratingZeroRadius = L1Radius/2;
+var ratingFullRadius = ratingZeroRadius + L2Radius;
 
 var radPerSmell = 0;
 var paper;
+var maxRating = 0;
 
 function prepareForDrawing() {
 	//Count how many Level 3s there are
@@ -103,7 +105,6 @@ function drawLevel2() {
 
 
 function drawLevel3() {
-	aromaViewData.length;
 	var radFromOrgin = 0;
 	for(l1key in aromaViewData) {
 		for(l2key in aromaViewData[l1key].L2) {
@@ -124,6 +125,58 @@ function drawLevel3() {
 	}
 }
 
+function prepareResultLine() {
+	for(l1key in aromaViewData) {
+		for(l2key in aromaViewData[l1key].L2) {
+			for(l3key in aromaViewData[l1key].L2[l2key].L3) {
+				aromaViewData[l1key].L2[l2key].L3[l3key].rating = ratingData[aromaViewData[l1key].L2[l2key].L3[l3key].L3Name];
+				if(maxRating < aromaViewData[l1key].L2[l2key].L3[l3key].rating) {
+					maxRating = aromaViewData[l1key].L2[l2key].L3[l3key].rating;
+				}
+			}
+		}
+	}
+}
+
+function drawResultLine() {
+	var radFromOrgin = 0;
+	var pathString = "M" + (orginX + ratingZeroRadius) + "," + orginY + "L";
+	var first = true;
+	var firstPoint;
+	for(l1key in aromaViewData) {
+		for(l2key in aromaViewData[l1key].L2) {
+			for(l3key in aromaViewData[l1key].L2[l2key].L3) {
+				
+				var radius = ratingZeroRadius + ((aromaViewData[l1key].L2[l2key].L3[l3key].rating / maxRating) * (ratingFullRadius - ratingZeroRadius));
+				console.log(radius);
+				var startx = orginX + (radius * Math.cos(radFromOrgin));
+				var starty = orginY + (radius * Math.sin(radFromOrgin));
+				var endx = orginX + (radius * Math.cos(radFromOrgin + radPerSmell));
+				var endy = orginY + (radius * Math.sin(radFromOrgin + radPerSmell));
+				
+				var midx = orginX + (radius * Math.cos(radFromOrgin + radPerSmell/2));
+				var midy = orginY + (radius * Math.sin(radFromOrgin + radPerSmell/2));
+				if(first) {
+					pathString = "M" + midx + "," + midy + " L";
+					firstPoint = midx + "," + midy;
+					first = false;
+				} else {
+					//straight line
+					pathString += midx + "," + midy + " ";
+				}
+				
+				
+				
+				//pathString += startx + "," + starty + " " + endx + "," + endy + " ";
+				radFromOrgin += radPerSmell;
+			}
+		}
+	}
+	pathString += firstPoint;
+	//var fuckme = "M" + (orginX + ratingZeroRadius) + "," + orginY + "T100,100 200,200 300,300 ";
+	paper.path(pathString).attr({ "stroke" : "#00F" });
+}
+
 
 
 $(document).ready(function ready() {
@@ -134,4 +187,7 @@ $(document).ready(function ready() {
 	drawLevel1();
 	drawLevel2();
 	drawLevel3();
+	
+	//prepareResultLine();
+	//drawResultLine();
 });
