@@ -83,6 +83,15 @@ function drawLevel2() {
 			paper.path("M" + innerStartx + "," + innerStarty + 
 				"L" + startx + "," + starty + 
 				"A" + L2Radius + ", " + L2Radius + " 0 " + ((rads < Math.PI) ? 1 : 0) + ",0 " + endx + "," + endy);
+			
+			
+			
+			//WORRRRDSSSS
+			var wordsx = orginX + ((L1Radius +(L2Radius-L1Radius)/2) * Math.cos(rads/2 + radFromOrgin));
+			var wordsy = orginY + ((L1Radius +(L2Radius-L1Radius)/2) * Math.sin(rads/2 + radFromOrgin));
+			var textRot = rads/2 + radFromOrgin;
+			textRot = (textRot > (Math.PI / 2) && textRot < (3 * Math.PI /2)) ? (textRot + Math.PI) : textRot;
+			paper.text(wordsx,wordsy,aromaViewData[l1key].L2[l2key].L2Name).rotate(Raphael.deg(textRot));
 			radFromOrgin += rads;
 		}
 	}
