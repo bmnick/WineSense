@@ -1,5 +1,12 @@
-%h2= "#{@wine.year} #{@wine.winery} #{@wine.wine}"
+%h2= "#{@wine}"
 #ratings
-    %p unimplemented at this time
+    -if @wine.tastings.size > 0
+        %ol
+            -@wine.tastings.each do |t|
+                %li= t.id
+    -else
+        %p 
+            No tastings yet, 
+            = link_to 'uncork a bottle!', new_wine_tasting_path(@wine)
 #graph
     
