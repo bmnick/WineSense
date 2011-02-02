@@ -1,5 +1,5 @@
-var canvasWidth = 800;
-var canvasHeight = 800;
+var canvasWidth = 600;
+var canvasHeight = 600;
 var orginX = canvasWidth/2;
 var orginY = canvasHeight/2;
 var L1Radius = canvasWidth/6;
