@@ -1,5 +1,5 @@
-%h1 Available Wines
-.wines
+%h2 Available Wines
+#wines
     - @wines.each do |wine|
         .wine
             = link_to "#{wine.year} #{wine.winery} #{wine.wine}", wine

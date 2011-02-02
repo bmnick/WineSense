@@ -1,0 +1,31 @@
+html,body {
+	width: 100%;
+
+}
+body {
+	background-color: #EC8;
+	color: black;
+	margin: 0;
+	padding: 0;
+	overflow-x: hidden;
+}
+
+#header {
+	padding: 20px 20px 0;
+	height: 80px;
+	width: 100%;
+	margin: 0;
+	background-color: #600;
+}
+
+#header a {
+	color: #EC8;
+}
+
+#body {
+	padding: 20px;
+}
+
+#body h2 {
+	color: #600;
+}

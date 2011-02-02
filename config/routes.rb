@@ -1,4 +1,6 @@
 WineSense::Application.routes.draw do
+  root :to => 'wines#index'
+  
   resources :wines
 
   # The priority is based upon order of creation:
