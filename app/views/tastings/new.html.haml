@@ -8,3 +8,8 @@
         %p
             = f.submit
 #graph
+
+- content_for :js_includes do 
+    = javascript_include_tag "raphael-min.js"
+    = javascript_include_tag "aromaViewTemplate.js"
+    = javascript_include_tag "aromaView.js"
