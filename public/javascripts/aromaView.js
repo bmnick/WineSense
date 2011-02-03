@@ -216,7 +216,7 @@ function drawResultLine() {
 	}
 	pathString = pathString + " " + firstPoint;
 	//console.log(pathString);
-	paper.path(pathString).attr({ "stroke" : ratingColor, "stroke-width" : 2 });
+	paper.path(pathString).attr({ "stroke" : ratingColor, "stroke-width" : 2, "opacity" : 0.6 });
 	pathString += " M" + (orginX + L1Radius) + ","+ orginY + " A" + L1Radius + " " + L1Radius + " 1 1 0 " + (orginX + L1Radius) + ","+ (orginY+0.00001);
 	paper.path(pathString).attr({ "fill" : ratingColor, "opacity" : 0.3 });
 }
