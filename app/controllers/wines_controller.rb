@@ -14,6 +14,7 @@ class WinesController < ApplicationController
   
   def create
     @wine = Wine.new(params[:wine])
+    @wine.description = nil if @wine.description == ""
     
     if @wine.save
       flash[:notice] = 'Wine Created'
