@@ -7,10 +7,9 @@
             Apparently someone was more interested in tasting this than describing it!
     #ratings
         -if @wine.tastings.size > 0
-            %ul
-                -@wine.tastings.each do |t|
-                    %li= t.id
-            %p= link_to 'uncork a bottle!', new_wine_tasting_path(@wine)
+            %p
+                = "#{pluralize(@wine.tastings.size, "person")} tried this wine.  Their opinions are to your right."
+            %p= link_to 'Uncork a bottle!', new_wine_tasting_path(@wine)
         -else
             %p 
                 No tastings yet, 
