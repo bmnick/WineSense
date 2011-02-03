@@ -7,6 +7,8 @@ var L2Radius = L1Radius * 2;
 var L3Radius = L1Radius * 3;
 var ratingZeroRadius = L1Radius;
 var ratingFullRadius = ratingZeroRadius + L2Radius;
+var ratingColor = "#ff0022";
+var selectColor = "#ff0022";
 
 var radPerSmell = 0;
 var paper;
@@ -110,7 +112,7 @@ function drawLevel2(selectMode) {
 				//lol screw raphael's events
 				$(smellText.node).click([l1key, l2key, smellText], function (event) {
 					aromaViewData[event.data[0]].L2[event.data[1]].selected = !aromaViewData[event.data[0]].L2[event.data[1]].selected
-					event.data[2].attr({ "stroke" : (aromaViewData[event.data[0]].L2[event.data[1]].selected) ? "#0cf" : "" });
+					event.data[2].attr({ "stroke" : (aromaViewData[event.data[0]].L2[event.data[1]].selected) ? selectColor : "" });
 					updateJSONField();
 				});
 			}
@@ -144,7 +146,7 @@ function drawLevel3(selectMode) {
 					//lol screw rafael's events
 					$(smellText.node).click([l1key, l2key, l3key, smellText], function (event) {
 						aromaViewData[event.data[0]].L2[event.data[1]].L3[event.data[2]].selected = !aromaViewData[event.data[0]].L2[event.data[1]].L3[event.data[2]].selected
-						event.data[3].attr({ "stroke" : (aromaViewData[event.data[0]].L2[event.data[1]].L3[event.data[2]].selected) ? "#0cf" : "" });
+						event.data[3].attr({ "stroke" : (aromaViewData[event.data[0]].L2[event.data[1]].L3[event.data[2]].selected) ? selectColor : "" });
 						updateJSONField();
 					});
 				}
@@ -215,9 +217,9 @@ function drawResultLine() {
 	pathString = pathString + " " + firstPoint;
 	//console.log(pathString);
 	//var fuckme = "M" + (orginX + ratingZeroRadius) + "," + orginY + "T100,100 200,200 300,300 ";
-	paper.path(pathString).attr({ "stroke" : "#00F", "stroke-width" : 2 });
+	paper.path(pathString).attr({ "stroke" : ratingColor, "stroke-width" : 2 });
 	pathString += " M" + (orginX + L1Radius) + ","+ orginY + " A" + L1Radius + " " + L1Radius + " 1 1 0 " + (orginX + L1Radius) + ","+ (orginY+0.00001);
-	paper.path(pathString).attr({ "fill" : "#00f", "opacity" : 0.3 });
+	paper.path(pathString).attr({ "fill" : ratingColor, "opacity" : 0.3 });
 	//paper.path("M" + (orginX + L1Radius) + ","+ orginY + " A" + L1Radius + " " + L1Radius + " 1 1 0 " + (orginX + L1Radius) + ","+ (orginY+0.00001)).attr({ "stroke" : "#F00", "stroke-width" : 4 , "fill" : "none", "opacity" : 0.3 });
 }
 
