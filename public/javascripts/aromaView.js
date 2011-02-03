@@ -5,7 +5,7 @@ var orginY = canvasHeight/2;
 var L1Radius = canvasWidth/6;
 var L2Radius = L1Radius * 2;
 var L3Radius = L1Radius * 3;
-var ratingZeroRadius = L1Radius/6	;
+var ratingZeroRadius = L1Radius/6;
 var ratingFullRadius = ratingZeroRadius + L2Radius;
 
 var radPerSmell = 0;
@@ -13,52 +13,7 @@ var paper;
 var maxRating = 0;
 
 
-var ratingData = {
-	"_comment" : "Vegetative",
-		"_comment" : "Fresh",
-	"Stemmy" : 1,
-	"Grass, Cut Green" : 1,
-	"Bell Pepper" : 1,
-	"Eucalyptus" : 1,
-	"Mint" : 2,
-		"_comment" : "Canned / Cooked",
-	"Green Beans" : 0,
-	"Asparagus" : 0,
-	"Green Olive" : 0,
-	"Black Olive" : 0,
-	"Artichoke" : 0,
-		"_comment" : "Dried",
-	"Hay / Straw" : 0,
-	"Tea" : 0,
-	"Tobacco" : 0,		
-	
-	"_comment" : "Nutty",
-		"_comment" : "Nutty",
-	"Walnut" : 1,
-	"Hazelnut" : 3,
-	"Almond" : 1,
-	
-	"_comment" : "Caramelized",
-		"_comment" : "Caramelized",
-	"Honey" : 0,
-	"Butterscotch" : 0,
-	"Diacetyl (Butter)" : 0,
-	"Soy Sauce" : 0,
-	"Chocolate" : 0,
-	"Molasses" : 0,
-	
-	"_comment" : "Woody",
-		"_comment" : "Phenolic",
-	"Phenolic" : 0,
-	"Vanilla" : 0,
-		"_comment" : "Resinous",
-	"Cedar" : 0,
-	"Oak" : 0,
-		"_comment" : "Burned",
-	"Smoky" : 0,
-	"Burnt Toast/Charred" : 0,
-	"Coffee" : 0
-};
+
 
 function prepareForDrawing() {
 	//Count how many Level 3s there are
@@ -82,10 +37,10 @@ function prepareForDrawing() {
 		for(l2key in aromaViewData[l1key].L2) {
 			aromaViewData[l1key].L2[l2key].rads = aromaViewData[l1key].L2[l2key].L3.length * radPerSmell;
 			l1RadCount += aromaViewData[l1key].L2[l2key].rads;
-			console.log("    " + aromaViewData[l1key].L2[l2key].L2Name + " : " + aromaViewData[l1key].L2[l2key].rads);
+			//console.log("    " + aromaViewData[l1key].L2[l2key].L2Name + " : " + aromaViewData[l1key].L2[l2key].rads);
 		}
 		aromaViewData[l1key].rads = l1RadCount;
-		console.log(aromaViewData[l1key].L1Name + " : " + l1RadCount);
+		//console.log(aromaViewData[l1key].L1Name + " : " + l1RadCount);
 	}
 	
 }
@@ -152,10 +107,11 @@ function drawLevel2(selectMode) {
 			if(selectMode) {
 				smellText.attr({ "cursor" : "pointer" });
 				
-				//lol screw rafael's events
+				//lol screw raphael's events
 				$(smellText.node).click([l1key, l2key, smellText], function (event) {
 					aromaViewData[event.data[0]].L2[event.data[1]].selected = !aromaViewData[event.data[0]].L2[event.data[1]].selected
 					event.data[2].attr({ "stroke" : (aromaViewData[event.data[0]].L2[event.data[1]].selected) ? "#0cf" : "" });
+					updateJSONField();
 				});
 			}
 			
@@ -189,6 +145,7 @@ function drawLevel3(selectMode) {
 					$(smellText.node).click([l1key, l2key, l3key, smellText], function (event) {
 						aromaViewData[event.data[0]].L2[event.data[1]].L3[event.data[2]].selected = !aromaViewData[event.data[0]].L2[event.data[1]].L3[event.data[2]].selected
 						event.data[3].attr({ "stroke" : (aromaViewData[event.data[0]].L2[event.data[1]].L3[event.data[2]].selected) ? "#0cf" : "" });
+						updateJSONField();
 					});
 				}
 				
@@ -256,7 +213,7 @@ function drawResultLine() {
 		}
 	}
 	pathString = pathString + " " + firstPoint;
-	console.log(pathString);
+	//console.log(pathString);
 	//var fuckme = "M" + (orginX + ratingZeroRadius) + "," + orginY + "T100,100 200,200 300,300 ";
 	paper.path(pathString).attr({ "stroke" : "#00F" });
 }
@@ -281,6 +238,10 @@ function dumpResultsJSON() {
 }
 
 
+function updateJSONField() {
+	$("#tasting_json_string").val(JSON.stringify(dumpResultsJSON()));
+}
+
 function lolResults() {
 	ratingData = dumpResultsJSON();
 	prepareResultLine();
@@ -289,6 +250,7 @@ function lolResults() {
 
 
 
+/*
 
 $(document).ready(function ready() {
 	paper = Raphael("graph", canvasWidth, canvasHeight);
@@ -302,3 +264,4 @@ $(document).ready(function ready() {
 	prepareResultLine();
 	drawResultLine();
 });
+*/
