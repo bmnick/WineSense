@@ -215,7 +215,10 @@ function drawResultLine() {
 	pathString = pathString + " " + firstPoint;
 	//console.log(pathString);
 	//var fuckme = "M" + (orginX + ratingZeroRadius) + "," + orginY + "T100,100 200,200 300,300 ";
-	paper.path(pathString).attr({ "stroke" : "#00F" });
+	paper.path(pathString).attr({ "stroke" : "#00F", "stroke-width" : 2 });
+	pathString += " M" + (orginX + L1Radius) + ","+ orginY + " A" + L1Radius + " " + L1Radius + " 1 1 0 " + (orginX + L1Radius) + ","+ (orginY+0.00001);
+	paper.path(pathString).attr({ "fill" : "#00f", "opacity" : 0.3 });
+	//paper.path("M" + (orginX + L1Radius) + ","+ orginY + " A" + L1Radius + " " + L1Radius + " 1 1 0 " + (orginX + L1Radius) + ","+ (orginY+0.00001)).attr({ "stroke" : "#F00", "stroke-width" : 4 , "fill" : "none", "opacity" : 0.3 });
 }
 
 function dumpResultsJSON() {
