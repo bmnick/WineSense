@@ -5,7 +5,7 @@ var orginY = canvasHeight/2;
 var L1Radius = canvasWidth/6;
 var L2Radius = L1Radius * 2;
 var L3Radius = L1Radius * 3;
-var ratingZeroRadius = L1Radius/2;
+var ratingZeroRadius = L1Radius/6	;
 var ratingFullRadius = ratingZeroRadius + L2Radius;
 
 var radPerSmell = 0;
@@ -217,15 +217,16 @@ function prepareResultLine() {
 
 function drawResultLine() {
 	var radFromOrgin = 0;
-	var pathString = "M" + (orginX + ratingZeroRadius) + "," + orginY + "L";
+	var pathString = "";
 	var first = true;
 	var firstPoint;
+	var lastPoint;
 	for(l1key in aromaViewData) {
 		for(l2key in aromaViewData[l1key].L2) {
 			for(l3key in aromaViewData[l1key].L2[l2key].L3) {
 				
 				var radius = ratingZeroRadius + ((aromaViewData[l1key].L2[l2key].L3[l3key].rating / maxRating) * (ratingFullRadius - ratingZeroRadius));
-				console.log(radius);
+				
 				var startx = orginX + (radius * Math.cos(radFromOrgin));
 				var starty = orginY + (radius * Math.sin(radFromOrgin));
 				var endx = orginX + (radius * Math.cos(radFromOrgin + radPerSmell));
@@ -233,23 +234,29 @@ function drawResultLine() {
 				
 				var midx = orginX + (radius * Math.cos(radFromOrgin + radPerSmell/2));
 				var midy = orginY + (radius * Math.sin(radFromOrgin + radPerSmell/2));
+				//
 				if(first) {
-					pathString = "M" + midx + "," + midy + " L";
-					firstPoint = midx + "," + midy;
+					pathString = "M" + midx + "," + midy + " C ";
+					firstPoint = startx + "," + starty + " " + midx + "," + midy;
 					first = false;
-				} else {
+				} 
+				
+				//else {
 					//straight line
-					pathString += midx + "," + midy + " ";
-				}
+				//	pathString += midx + "," + midy + " ";
+				//}
 				
 				
+				pathString += startx + "," + starty + " " + midx + "," + midy + " C" + endx + "," + endy + " ";
 				
+				//lastPoint =  + midx + "," + midy + " C" + endx + "," + endy;
 				//pathString += startx + "," + starty + " " + endx + "," + endy + " ";
 				radFromOrgin += radPerSmell;
 			}
 		}
 	}
-	pathString += firstPoint;
+	pathString = pathString + " " + firstPoint;
+	console.log(pathString);
 	//var fuckme = "M" + (orginX + ratingZeroRadius) + "," + orginY + "T100,100 200,200 300,300 ";
 	paper.path(pathString).attr({ "stroke" : "#00F" });
 }
@@ -271,6 +278,13 @@ function dumpResultsJSON() {
 	}
 	//console.log(results);
 	return results;
+}
+
+
+function lolResults() {
+	ratingData = dumpResultsJSON();
+	prepareResultLine();
+	drawResultLine();
 }
 
 
