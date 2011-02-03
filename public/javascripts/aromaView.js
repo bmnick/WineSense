@@ -6,7 +6,7 @@ var L1Radius = 180;
 var L2Radius = 300;
 var L3Radius = 400;
 var ratingZeroRadius = L1Radius;
-var ratingFullRadius = ratingZeroRadius + L2Radius;
+var ratingFullRadius = L3Radius;
 var ratingColor = "#ff0022";
 var selectColor = "#ff0022";
 
