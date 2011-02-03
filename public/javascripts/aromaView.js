@@ -2,9 +2,9 @@ var canvasWidth = 800;
 var canvasHeight = 800;
 var orginX = canvasWidth/2;
 var orginY = canvasHeight/2;
-var L1Radius = canvasWidth/6;
-var L2Radius = L1Radius * 2;
-var L3Radius = L1Radius * 3;
+var L1Radius = 180;
+var L2Radius = 300;
+var L3Radius = 400;
 var ratingZeroRadius = L1Radius;
 var ratingFullRadius = ratingZeroRadius + L2Radius;
 var ratingColor = "#ff0022";
@@ -62,8 +62,8 @@ function drawLevel1() {
 		
 		
 		//WORRRRDSSSS
-		var wordsx = orginX + (L1Radius/2 * Math.cos(rads/2 + radFromOrgin));
-		var wordsy = orginY + (L1Radius/2 * Math.sin(rads/2 + radFromOrgin));
+		var wordsx = orginX + (3*L1Radius/4 * Math.cos(rads/2 + radFromOrgin));
+		var wordsy = orginY + (3*L1Radius/4 * Math.sin(rads/2 + radFromOrgin));
 		var textRot = rads/2 + radFromOrgin;
 		textRot = (textRot > (Math.PI / 2) && textRot < (3 * Math.PI /2)) ? (textRot + Math.PI) : textRot;
 		paper.text(wordsx,wordsy,aromaViewData[l1key].L1Name).rotate(Raphael.deg(textRot));
@@ -216,11 +216,9 @@ function drawResultLine() {
 	}
 	pathString = pathString + " " + firstPoint;
 	//console.log(pathString);
-	//var fuckme = "M" + (orginX + ratingZeroRadius) + "," + orginY + "T100,100 200,200 300,300 ";
 	paper.path(pathString).attr({ "stroke" : ratingColor, "stroke-width" : 2 });
 	pathString += " M" + (orginX + L1Radius) + ","+ orginY + " A" + L1Radius + " " + L1Radius + " 1 1 0 " + (orginX + L1Radius) + ","+ (orginY+0.00001);
 	paper.path(pathString).attr({ "fill" : ratingColor, "opacity" : 0.3 });
-	//paper.path("M" + (orginX + L1Radius) + ","+ orginY + " A" + L1Radius + " " + L1Radius + " 1 1 0 " + (orginX + L1Radius) + ","+ (orginY+0.00001)).attr({ "stroke" : "#F00", "stroke-width" : 4 , "fill" : "none", "opacity" : 0.3 });
 }
 
 function dumpResultsJSON() {
