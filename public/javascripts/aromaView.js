@@ -30,7 +30,7 @@ var ratingData = {
 		"_comment" : "Dried",
 	"Hay / Straw" : 0,
 	"Tea" : 0,
-	"Tobacco" : 0,
+	"Tobacco" : 0,		
 	
 	"_comment" : "Nutty",
 		"_comment" : "Nutty",
@@ -202,7 +202,11 @@ function prepareResultLine() {
 	for(l1key in aromaViewData) {
 		for(l2key in aromaViewData[l1key].L2) {
 			for(l3key in aromaViewData[l1key].L2[l2key].L3) {
-				aromaViewData[l1key].L2[l2key].L3[l3key].rating = ratingData[aromaViewData[l1key].L2[l2key].L3[l3key].L3Name];
+				if(aromaViewData[l1key].L2[l2key].L3[l3key].L3Name in ratingData) {
+					aromaViewData[l1key].L2[l2key].L3[l3key].rating = ratingData[aromaViewData[l1key].L2[l2key].L3[l3key].L3Name];
+				} else {
+					aromaViewData[l1key].L2[l2key].L3[l3key].rating = 0;
+				}
 				if(maxRating < aromaViewData[l1key].L2[l2key].L3[l3key].rating) {
 					maxRating = aromaViewData[l1key].L2[l2key].L3[l3key].rating;
 				}
@@ -250,6 +254,26 @@ function drawResultLine() {
 	paper.path(pathString).attr({ "stroke" : "#00F" });
 }
 
+function dumpResultsJSON() {
+	var results = {}; 
+	for(l1key in aromaViewData) {
+		for(l2key in aromaViewData[l1key].L2) {
+			for(l3key in aromaViewData[l1key].L2[l2key].L3) {
+				if(aromaViewData[l1key].L2[l2key].selected && aromaViewData[l1key].L2[l2key].L3[l3key].selected) {
+					results[aromaViewData[l1key].L2[l2key].L3[l3key].L3Name] = 3;
+				} else if(aromaViewData[l1key].L2[l2key].selected) {
+					results[aromaViewData[l1key].L2[l2key].L3[l3key].L3Name] = 1;
+				} else if(aromaViewData[l1key].L2[l2key].L3[l3key].selected) {
+					results[aromaViewData[l1key].L2[l2key].L3[l3key].L3Name] = 2;
+				}
+			}
+		}
+	}
+	//console.log(results);
+	return results;
+}
+
+
 
 
 $(document).ready(function ready() {
@@ -261,6 +285,6 @@ $(document).ready(function ready() {
 	drawLevel2(true);
 	drawLevel3(true);
 	
-	//prepareResultLine();
-	//drawResultLine();
+	prepareResultLine();
+	drawResultLine();
 });
