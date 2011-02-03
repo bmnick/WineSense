@@ -24,4 +24,4 @@
     
 - content_for :json_data do
     %script(type="text/javascript")
-        = "var ratingData = #{@wine.tastings[0].json_string};"
+        = "var ratingData = #{@wine.aggregate_tastings};"
