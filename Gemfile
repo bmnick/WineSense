@@ -10,6 +10,9 @@ gem 'sqlite3-ruby', :require => 'sqlite3'
 # Use HAML for teplates to make them much nicer
 gem "haml-rails"
 
+# Get a json parser in here, save some effort
+gem 'json'
+
 # Use unicorn as the web server
 # gem 'unicorn'
 
