@@ -5,7 +5,7 @@ var orginY = canvasHeight/2;
 var L1Radius = canvasWidth/6;
 var L2Radius = L1Radius * 2;
 var L3Radius = L1Radius * 3;
-var ratingZeroRadius = L1Radius/6;
+var ratingZeroRadius = L1Radius;
 var ratingFullRadius = ratingZeroRadius + L2Radius;
 
 var radPerSmell = 0;
