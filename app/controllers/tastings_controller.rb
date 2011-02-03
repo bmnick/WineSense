@@ -12,6 +12,8 @@ class TastingsController < ApplicationController
     if @tasting.save
       flash[:notice] = 'Tasting Created'
       redirect_to @wine
+    else
+      redirect_to new_wine_tasting_path(@wine)
     end
   end
 
