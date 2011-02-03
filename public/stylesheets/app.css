@@ -51,7 +51,7 @@ body {
 
 #graph {
 	float: right;
-	background-color: white;
+	background-color: transparent;
 	height: 800px;
 	width: 800px;
 }

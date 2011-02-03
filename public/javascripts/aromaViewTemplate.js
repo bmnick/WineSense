@@ -147,7 +147,6 @@ var aromaViewData = [
 					{"L3Name" : "Ethyl Acetate"},
 					{"L3Name" : "Acetic Acid"},
 					{"L3Name" : "Ethanol"},
-					{"L3Name" : "Sulfur Dioxide"}
 				]
 			},
 			{
