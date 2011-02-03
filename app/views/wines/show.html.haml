@@ -22,3 +22,6 @@
     = javascript_include_tag "aromaViewTemplate.js"
     = javascript_include_tag "aromaView.js"
     
+- content_for :json_data do
+    %script(type="text/javascript")
+        = "var ratingData = #{@wine.tastings[0].json_string};"
